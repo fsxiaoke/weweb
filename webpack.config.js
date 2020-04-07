@@ -56,6 +56,7 @@ module.exports = {
     path: getPath(DIST_PATH)
   },
   watch: watch,
+  devtool: isProd ? 'source-map' : 'inline-source-map',
   module: {
     loaders: [
       {
@@ -76,7 +77,9 @@ module.exports = {
           fallback: 'style-loader',
           use: {
             loader: 'css-loader',
-            options: { minimize: true }
+            options: {
+              minimize: true
+            }
           }
         })
       },

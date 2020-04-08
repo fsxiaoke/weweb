@@ -22,25 +22,25 @@ let header = {
       back: false,
       sendText: false
     }
-    if (!this.dom) {
-      this.dom = {
-        head: this.$('.jshook-ws-head'),
-        headBack: this.$('.jshook-ws-head-back'),
-        headBackText: this.$('.jshook-ws-head-back-text'),
-        headHome: this.$('.jshook-ws-head-home'),
-        headTitle: this.$('.jshook-ws-head-title'),
-        headOption: this.$('.jshook-ws-head-option')
-      }
-      this.dom.headBackSpan = this.dom.headBack.querySelector('span')
-      this.dom.headTitleSpan = this.dom.headTitle.querySelector('span')
-      this.dom.headBackI = this.dom.headBack.querySelector('i')
-      this.dom.headHomeI = this.dom.headHome.querySelector('i')
-      this.dom.headTitleI = this.dom.headTitle.querySelector('i')
-      this.dom.headBack.onclick = this.onBack.bind(null)
-      this.dom.headHome.onclick = this.onHome.bind(null)
-      this.dom.headOption.onclick = this.onOptions.bind(null)
-    }
-    this.dom.head.style.display = 'block'
+    // if (!this.dom) {
+    //   this.dom = {
+    //     head: this.$('.jshook-ws-head'),
+    //     headBack: this.$('.jshook-ws-head-back'),
+    //     headBackText: this.$('.jshook-ws-head-back-text'),
+    //     headHome: this.$('.jshook-ws-head-home'),
+    //     headTitle: this.$('.jshook-ws-head-title'),
+    //     headOption: this.$('.jshook-ws-head-option')
+    //   }
+    //   this.dom.headBackSpan = this.dom.headBack.querySelector('span')
+    //   this.dom.headTitleSpan = this.dom.headTitle.querySelector('span')
+    //   this.dom.headBackI = this.dom.headBack.querySelector('i')
+    //   this.dom.headHomeI = this.dom.headHome.querySelector('i')
+    //   this.dom.headTitleI = this.dom.headTitle.querySelector('i')
+    //   this.dom.headBack.onclick = this.onBack.bind(null)
+    //   this.dom.headHome.onclick = this.onHome.bind(null)
+    //   this.dom.headOption.onclick = this.onOptions.bind(null)
+    // }
+    // this.dom.head.style.display = 'block'
     Bus.on('route', this.reset.bind(this))
     this.setState()
   },
@@ -75,8 +75,7 @@ let header = {
     } else {
       this.setState({
         hide,
-        backgroundColor:
-          winConfig.navigationBarBackgroundColor || d.backgroundColor,
+        backgroundColor: winConfig.navigationBarBackgroundColor || d.backgroundColor,
         color: winConfig.navigationBarTextStyle || d.color,
         title: winConfig.navigationBarTitleText || d.title,
         loading: false,
@@ -86,15 +85,15 @@ let header = {
       })
     }
   },
-  onBack: function (e,send) {
+  onBack: function (e, send) {
     e.preventDefault()
-    Bus.emit('back',send)
+    Bus.emit('back', send)
   },
   onSend: function (e) {
     // TODO send location
     e.stopPropagation()
-    const data = Object.assign({},router.currentView().location)
-    this.onBack(e,true)
+    const data = Object.assign({}, router.currentView().location)
+    this.onBack(e, true)
     Bus.emit('location', data)
   },
   onOptions: function (e) {
@@ -112,7 +111,10 @@ let header = {
         callback: function () {
           if (window.localStorage != null) {
             storage.clear()
-            toast.show({ title: '数据缓存已清除', icon: 'success' })
+            toast.show({
+              title: '数据缓存已清除',
+              icon: 'success'
+            })
           }
         }
       },
@@ -184,30 +186,30 @@ let header = {
   setState: function (data) {
     if (data) Object.assign(this.state, data)
     let state = this.state
-    this.dom.head.style.backgroundColor = state.backgroundColor
-    this.dom.head.style.display = state.hide ? 'none' : 'flex'
-    this.dom.headBack.style.display = state.back ? 'flex' : 'none'
-    this.dom.headBackSpan.style.color = state.color
-    this.dom.headTitle.style.color = state.color
-    this.dom.headBackSpan.innerHTML = state.backText
-    this.dom.headTitleSpan.innerHTML = state.title
-    this.dom.headBackI.style.display = !state.sendText ? 'inline-block' : 'none'
-    this.dom.headTitleI.style.display = state.loading ? 'inline-block' : 'none'
-    this.dom.headBackI.style.borderLeft = `1px solid ${state.color}`
-    this.dom.headBackI.style.borderBottom = `1px solid ${state.color}`
-    this.dom.headHome.style.display = state.back ? 'none' : 'flex'
-    this.dom.headHomeI.className =
-      state.color == 'white' ? 'head-home-icon white' : 'head-home-icon'
-    this.dom.headHomeI.style.display = state.back ? 'none' : 'flex'
-    if (state.sendText) {
-      this.dom.headOption.innerHTML = '<div>发送</div>'
-      this.dom.headOption.querySelector('div').onclick = this.onSend.bind(this)
-    } else {
-      this.dom.headOption.innerHTML =
-        '<i class="head-option-icon' +
-        (state.color == 'white' ? ' white' : '') +
-        '"></i>'
-    }
+    // this.dom.head.style.backgroundColor = state.backgroundColor
+    // this.dom.head.style.display = state.hide ? 'none' : 'flex'
+    // this.dom.headBack.style.display = state.back ? 'flex' : 'none'
+    // this.dom.headBackSpan.style.color = state.color
+    // this.dom.headTitle.style.color = state.color
+    // this.dom.headBackSpan.innerHTML = state.backText
+    // this.dom.headTitleSpan.innerHTML = state.title
+    // this.dom.headBackI.style.display = !state.sendText ? 'inline-block' : 'none'
+    // this.dom.headTitleI.style.display = state.loading ? 'inline-block' : 'none'
+    // this.dom.headBackI.style.borderLeft = `1px solid ${state.color}`
+    // this.dom.headBackI.style.borderBottom = `1px solid ${state.color}`
+    // this.dom.headHome.style.display = state.back ? 'none' : 'flex'
+    // this.dom.headHomeI.className =
+    //   state.color == 'white' ? 'head-home-icon white' : 'head-home-icon'
+    // this.dom.headHomeI.style.display = state.back ? 'none' : 'flex'
+    // if (state.sendText) {
+    //   this.dom.headOption.innerHTML = '<div>发送</div>'
+    //   this.dom.headOption.querySelector('div').onclick = this.onSend.bind(this)
+    // } else {
+    //   this.dom.headOption.innerHTML =
+    //     '<i class="head-option-icon' +
+    //     (state.color == 'white' ? ' white' : '') +
+    //     '"></i>'
+    // }
   }
 }
 export default header

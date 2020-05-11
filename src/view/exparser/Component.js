@@ -81,6 +81,7 @@ Component.registerCustom = function(elm){
 
   //ele struct
   // {
+  //   is: 'custom-tag',
   //   path:'components/customtag/customtag',
   //   genFunc: function f() {}
   // }

@@ -58,6 +58,12 @@ const createWXVirtualNodeRec = function (opt) {
     children
   )
 }
+
+const createVirtualTree = function (root) {
+  let vtree = createWXVirtualNodeRec(root)
+  return vtree
+}
+
 const createBodyNode = function (data) {
   window.__curPage__.envData || (window.__curPage__.envData = {})
   let root = window.__generateFunc__(
@@ -143,4 +149,8 @@ export default {
     window.__DOMTree__ = void 0
     // nonsenselet = {}
   }
+}
+
+export {
+  createVirtualTree
 }

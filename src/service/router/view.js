@@ -288,6 +288,23 @@ export default class View extends Emitter {
               componentLoaded()
             }
           })
+        }else{
+          function componentLoaded () {
+            window.reRender = 0 // 重置
+            Bus.emit('ready', self.id)
+            Pull.register(function () {
+              ServiceJSBridge.subscribeHandler('onPullDownRefresh', {}, self.id)
+            })
+          }
+  
+          if (resArr[3]) {
+            const deps = JSON.parse(resArr[3]).map(name => `wx-${name}`)
+            window.exparser.registerAsyncComp(deps, () => {
+              componentLoaded()
+            })
+          } else {
+            componentLoaded()
+          }
         }
         
       })

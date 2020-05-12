@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "view",
+  "usingComponents": {
+    "mytag":"../../cmpt/mytag"
+  }
+}

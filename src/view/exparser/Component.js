@@ -76,6 +76,7 @@ Component.CCompontentHolder = function (e) {
   __custom_comp_jscode__[e.is] = e
 }
 
+window.Component = Component.CCompontentHolder
 
 Component.registerCustom = function(elm){
 
@@ -465,4 +466,3 @@ Component.register({
 })
 
 export default Component
-window.Compontent = Component.CCompontentHolder

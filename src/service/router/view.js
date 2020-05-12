@@ -224,6 +224,7 @@ export default class View extends Emitter {
         path:cc_in_page[i].c_path,
         genFunc: eval(cc_in_page[i].c_path.replace(/\//g,'_')+"_genfunc()")
       }
+      __appcurrentcomponent__ = temp.path
       exparser.registerCustomElement(temp)
       __using_cc__[cc_in_page[i].c_tag]=cc_in_page[i].c_path
     }

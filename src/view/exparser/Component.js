@@ -71,7 +71,7 @@ window.__custom_comp_jscode__ = []
 // registerElement
 Component.CCompontentHolder = function (e) {
   console.log(e)
-  __custom_comp_jscode__[e.is] = e
+  __custom_comp_jscode__[__appcurrentcomponent__] = e
 }
 
 window.Component = Component.CCompontentHolder

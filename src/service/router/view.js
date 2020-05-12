@@ -203,6 +203,7 @@ export default class View extends Emitter {
       
       var link = document.createElement('link')
       link.setAttribute('type', 'text/css')
+    link.setAttribute('rel', 'stylesheet')
       link.setAttribute('href', scr)
 
       document.querySelector('head').appendChild(link)

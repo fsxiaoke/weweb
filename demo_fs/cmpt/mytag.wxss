@@ -1,0 +1,12 @@
+/* cmpt/mytag.wxss */
+.userinfo3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.userinfo3 .userinfo4 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

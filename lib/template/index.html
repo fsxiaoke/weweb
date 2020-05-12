@@ -33,15 +33,35 @@
   <script>
     var __wxConfig__ = {{! _.config}}
     var __root__ = '{{= _.root}}'
+    
   </script>
   <script>
     var __wxRoute
     var __wxRouteBegin
     global = {}
+    var __ccarray__=[]
+    function registCC(cc_in_page){
+      for(var i=0;i<cc_in_page.length;i++){
+        // require view js and genc function
+        var temp={
+          is: cc_in_page[i],
+          path:cc_in_page[i],
+          genFunc: eval(cc_in_page[i].replace(/\//g,'_')+"_genfunc()")
+        }
+        __ccarray__.push(temp)
+      }
+  }
   </script>
 
   <script src="script/weweb.js?v={{= _.version}}" type="text/javascript"></script>
   <script src="script/app-service.js?v={{= _.version}}"></script>
+  <script>
+    for(var i=0;i<__ccarray__.length;i++){
+      exparser.registerCustomElement(__ccarray__[i])
+    }
+    
+    
+  </script>
   <script>
     ServiceJSBridge.doCommand({
       sdkName: 'onLaunch'

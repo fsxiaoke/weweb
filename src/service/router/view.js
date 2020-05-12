@@ -211,9 +211,9 @@ export default class View extends Emitter {
   processCC (ccarray){
     let promiselist=[]
     for(var i=0;i<ccarray.length;i++){
-      promiselist.push(this.insertJSSrc("./"+ccarray[i]+"-view.js"))
-      promiselist.push(this.insertJSSrc("./"+ccarray[i]+".js"))
-      this.insertCssSrc("./"+ccarray[i]+".css")
+      promiselist.push(this.insertJSSrc("./"+ccarray[i].c_path+"-view.js"))
+      promiselist.push(this.insertJSSrc("./"+ccarray[i].c_path+".js"))
+      this.insertCssSrc("./"+ccarray[i].c_path+".css")
     }
     return promiselist
   }
@@ -221,11 +221,11 @@ export default class View extends Emitter {
     for(var i=0;i<cc_in_page.length;i++){
       // require view js and genc function
       var temp={
-        is: cc_in_page[i],
-        path:cc_in_page[i],
-        genFunc: eval(cc_in_page[i].replace(/\//g,'_')+"_genfunc()")
+        path:cc_in_page[i].c_path,
+        genFunc: eval(cc_in_page[i].c_path.replace(/\//g,'_')+"_genfunc()")
       }
       exparser.registerCustomElement(temp)
+      __using_cc__[cc_in_page[i].c_tag]=cc_in_page[i].c_path
     }
   }
   loadWxml () {

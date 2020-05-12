@@ -3,7 +3,7 @@ import * as EventManager from './EventManager'
 import Template from './Template'
 import Behavior from './Behavior'
 import Element from './Element'
-
+import Observer from './Observer'
 
 function camelToDashed (txt) {
   return txt.replace(/[A-Z]/g, function (ch) {

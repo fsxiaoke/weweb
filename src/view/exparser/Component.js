@@ -4,7 +4,7 @@ import Template from './Template'
 import Behavior from './Behavior'
 import Element from './Element'
 import Observer from './Observer'
-import {createVirtualTree} from '../virtual-dom'
+// import {createVirtualTree} from '../virtual-dom'
 
 
 function camelToDashed (txt) {
@@ -85,7 +85,7 @@ Component.registerCustom = function(elm){
   //   genFunc: function f() {}
   // }
 
-  require(elm.path + '.js')
+  window.require(elm.path + '.js')
   let nElement = __custom_comp_jscode__[elm.is]
   nElement.is = nElement.is || elm.is
 
@@ -204,8 +204,8 @@ Component.registerCustom = function(elm){
 
   var root = elm.genFunc(elm.path)
   root.tag = 'shadow'
-  var vtree = createVirtualTree(root)
-
+  // var vtree = createVirtualTree(root)
+  var vtree = {}
   let template = {
     '__virtualTree':vtree,
     '_generateFunc':elm.genFunc

@@ -1,3 +1,5 @@
+import './service/amdEngine'
+
 import './assets/css/index.css'
 
 import './common/globalDefined'
@@ -9,8 +11,6 @@ import './common/reporter'
 import './service/api'
 
 import './service/engine'
-
-import './service/amdEngine'
 
 import './view/api'
 

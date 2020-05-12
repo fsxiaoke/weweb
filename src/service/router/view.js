@@ -182,6 +182,52 @@ export default class View extends Emitter {
       document.querySelector('head').appendChild(link)
     }
   }
+  insertJSSrc (scr) {
+    return new Promise((resolve,reject)=>{
+      if (!scr) reject()
+    
+      var link = document.createElement('script')
+      link.setAttribute('type', 'text/javascript')
+      link.setAttribute('src', scr)
+      link.onload=function(){
+        resolve()
+      }
+      document.querySelector('head').appendChild(link)
+      
+    })
+    
+    
+  }
+  insertCssSrc (scr) {
+      if (!scr) return
+      
+      var link = document.createElement('link')
+      link.setAttribute('type', 'text/css')
+      link.setAttribute('href', scr)
+
+      document.querySelector('head').appendChild(link)
+      
+  }
+  processCC (ccarray){
+    let promiselist=[]
+    for(var i=0;i<ccarray.length;i++){
+      promiselist.push(this.insertJSSrc("./"+ccarray[i]+"-view.js"))
+      promiselist.push(this.insertJSSrc("./"+ccarray[i]+".js"))
+      this.insertCssSrc("./"+ccarray[i]+".css")
+    }
+    return promiselist
+  }
+  registCC(cc_in_page){
+    for(var i=0;i<cc_in_page.length;i++){
+      // require view js and genc function
+      var temp={
+        is: cc_in_page[i],
+        path:cc_in_page[i],
+        genFunc: eval(cc_in_page[i].replace(/\//g,'_')+"_genfunc()")
+      }
+      exparser.registerCustomElement(temp)
+    }
+  }
   loadWxml () {
     // load generateFn and notify view
     // this.el.contentWindow.__gen()
@@ -219,23 +265,29 @@ export default class View extends Emitter {
         if (resArr[1]) {
           self.inlineCss(resArr[1], self.path)
         }
-
-        function componentLoaded () {
-          window.reRender = 0 // 重置
-          Bus.emit('ready', self.id)
-          Pull.register(function () {
-            ServiceJSBridge.subscribeHandler('onPullDownRefresh', {}, self.id)
+        if (resArr[4]) {
+          var temp1=JSON.parse(resArr[4])
+          Promise.all(self.processCC(temp1) ).then(()=>{
+            self.registCC(temp1)
+            function componentLoaded () {
+              window.reRender = 0 // 重置
+              Bus.emit('ready', self.id)
+              Pull.register(function () {
+                ServiceJSBridge.subscribeHandler('onPullDownRefresh', {}, self.id)
+              })
+            }
+    
+            if (resArr[3]) {
+              const deps = JSON.parse(resArr[3]).map(name => `wx-${name}`)
+              window.exparser.registerAsyncComp(deps, () => {
+                componentLoaded()
+              })
+            } else {
+              componentLoaded()
+            }
           })
         }
-
-        if (resArr[3]) {
-          const deps = JSON.parse(resArr[3]).map(name => `wx-${name}`)
-          window.exparser.registerAsyncComp(deps, () => {
-            componentLoaded()
-          })
-        } else {
-          componentLoaded()
-        }
+        
       })
   }
 }

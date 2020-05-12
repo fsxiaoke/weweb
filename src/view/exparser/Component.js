@@ -86,8 +86,8 @@ Component.registerCustom = function(elm){
   // }
 
   window.require(elm.path + '.js')
-  let nElement = __custom_comp_jscode__[elm.is]
-  nElement.is = nElement.is || elm.is
+  let nElement = __custom_comp_jscode__[elm.path]
+  nElement.is = elm.path
 
   let opts = nElement.options || {}
   let propDefination = {
@@ -189,17 +189,6 @@ Component.registerCustom = function(elm){
   for (let propName in behaviorProperties) {
     defaultValuesJSON[propName] = behaviorProperties[propName].value
     publicProps[propName] = !!behaviorProperties[propName].public
-  }
-
-  let insElement = document.getElementById(componentBehavior.is)
-  if (
-      !componentBehavior.template &&
-      insElement &&
-      insElement.tagName === 'TEMPLATE'
-  ) {
-  } else {
-    insElement = document.createElement('template')
-    insElement.innerHTML = componentBehavior.template || ''
   }
 
   var root = elm.genFunc(elm.path)

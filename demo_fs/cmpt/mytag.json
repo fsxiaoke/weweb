@@ -1,4 +1,6 @@
 {
   "component": true,
-  "usingComponents": {}
+  "usingComponents": {
+    "tagzz":"../cmpt/tag2/tag2"
+  }
 }

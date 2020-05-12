@@ -1,0 +1,6 @@
+/* cmpt/mytag.wxss */
+.userinfo3_tag2 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

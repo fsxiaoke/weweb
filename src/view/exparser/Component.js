@@ -3,8 +3,6 @@ import * as EventManager from './EventManager'
 import Template from './Template'
 import Behavior from './Behavior'
 import Element from './Element'
-import Observer from './Observer'
-// import {createVirtualTree} from '../virtual-dom'
 
 
 function camelToDashed (txt) {
@@ -82,6 +80,7 @@ Component.registerCustom = function(elm){
 
   //ele struct
   // {
+  //   is: 'custom-tag',
   //   path:'components/customtag/customtag',
   //   genFunc: function f() {}
   // }
@@ -205,8 +204,7 @@ Component.registerCustom = function(elm){
 
   var root = elm.genFunc(elm.path)
   root.tag = 'shadow'
-  // var vtree = createVirtualTree(root)
-  var vtree = {}
+  var vtree = createVirtualTree(root)
   let template = {
     '__virtualTree':vtree,
     '_generateFunc':elm.genFunc

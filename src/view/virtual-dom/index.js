@@ -59,7 +59,7 @@ const createWXVirtualNodeRec = function (opt) {
   )
 }
 
-const createVirtualTree = function (root) {
+window.createVirtualTree = function (root) {
   let vtree = createWXVirtualNodeRec(root)
   return vtree
 }
@@ -151,6 +151,3 @@ export default {
   }
 }
 
-export {
-  createVirtualTree
-}

@@ -313,6 +313,7 @@ function build() {
         if (!arr[2]) arr[2] = ''
         content += '@code-separator-line:' + arr[2] // app-service
         content += '@code-separator-line:' + JSON.stringify(arr[0][1]) // tags
+        content = cc_parser.insert2PageForWeweb(fullpath + '.wxml', content)
         return util
           .createFilePromise(
             distPath + '/src/' + path,

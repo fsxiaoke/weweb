@@ -226,7 +226,7 @@ export default class View extends Emitter {
       }
       __appcurrentcomponent__ = temp.path
       exparser.registerCustomElement(temp)
-      __using_cc__[cc_in_page[i].c_tag]=cc_in_page[i].c_path
+      __using_cc__['wx-' + cc_in_page[i].c_tag]=cc_in_page[i].c_path
     }
   }
   loadWxml () {

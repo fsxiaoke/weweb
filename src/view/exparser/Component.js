@@ -364,6 +364,7 @@ Component.register = function (nElement) {
 Component.create = function (tagName) {
   tagName = tagName ? tagName.toLowerCase() : 'virtual'
   let newElement = document.createElement(tagName)
+  tagName = __using_cc__[tagName] || tagName
   let sysComponent = Component.list[tagName] || Component.list['']
   let newComponent = Object.create(sysComponent.proto) // 虚拟dom
 
@@ -375,6 +376,7 @@ Component.create = function (tagName) {
   let templateInstance = {}
   if(sysComponent.custom){
     templateInstance.shadowRoot = sysComponent.template.__virtualTree.render();
+    templateInstance.slots = {}
   }else{
     templateInstance = (newComponent.__templateInstance = sysComponent.template.createInstance(
         newComponent

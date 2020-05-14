@@ -1,6 +1,12 @@
 
 <view class="page_container">
-    <text bindtap="tapName">hello fone</text>
-    <view>{{text}}</view>
-    <mytag></mytag>
+    <checkbox value="cb" >
+        <button>未选中</button>
+
+        </checkbox>
+<!--    <text bindtap="tapName">hello fone</text>-->
+<!--    <view>{{text}}</view>-->
+    <mytag>
+    <text> this is slot</text>
+    </mytag>
 </view>

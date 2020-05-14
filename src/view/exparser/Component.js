@@ -77,14 +77,6 @@ Component.CCompontentHolder = function (e) {
 window.Component = Component.CCompontentHolder
 
 Component.registerCustom = function(elm){
-
-  //ele struct
-  // {
-  //   is: 'custom-tag',
-  //   path:'components/customtag/customtag',
-  //   genFunc: function f() {}
-  // }
-
   window.require(elm.path + '.js')
   let nElement = __custom_comp_jscode__[elm.path]
   nElement.is = elm.path
@@ -360,6 +352,15 @@ Component.register = function (nElement) {
   }
 }
 
+const findSlots = function(node, slots){
+  node.childNodes &&  (node.childNodes instanceof Array)  && node.childNodes.forEach(child=>{
+    if(child._tagName === 'slot'){
+      slots[''] = child
+    }
+    findSlots(child, slots)
+  })
+}
+
 // createElement
 Component.create = function (tagName) {
   tagName = tagName ? tagName.toLowerCase() : 'virtual'
@@ -376,7 +377,9 @@ Component.create = function (tagName) {
   let templateInstance = {}
   if(sysComponent.custom){
     templateInstance.shadowRoot = sysComponent.template.__virtualTree.render();
-    templateInstance.slots = {}
+    let slots = Object.create(null)
+    findSlots(templateInstance.shadowRoot,slots);
+    templateInstance.slots = slots;
   }else{
     templateInstance = (newComponent.__templateInstance = sysComponent.template.createInstance(
         newComponent

@@ -7,6 +7,7 @@ import './Enums'
 
 class WxVirtualNode {
   constructor (tagName, props, newProps, wxKey, wxVkey, children) {
+    if(tagName === 'wx-slot') tagName='slot'
     this.tagName = tagName || 'div'
     this.props = props || {}
     this.children = children || []
@@ -44,7 +45,7 @@ class WxVirtualNode {
       let dom = child.render()
       ele.appendChild(dom)
     })
-
+    ele._tagName = this.tagName
     return ele
   }
 

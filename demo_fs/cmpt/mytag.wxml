@@ -1,2 +1,5 @@
-<text class="userinfo3">cmpt/mytag.wxml</text>
-<tagzz></tagzz>
+
+<view>
+    <text class="userinfo3">cmpt/mytag.wxml</text>
+    <slot></slot>
+</view>

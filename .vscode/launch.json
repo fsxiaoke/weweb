@@ -13,8 +13,7 @@
             ],
             "args": [
                 "${workspaceFolder}\\demo_fs",
-                "-b",
-                "-t"
+                "-b"
             ],
             "program": "${workspaceFolder}\\bin\\weweb"
         }

@@ -6,7 +6,7 @@
         </checkbox>
 <!--    <text bindtap="tapName">hello fone</text>-->
 <!--    <view>{{text}}</view>-->
-    <mytag>
+    <mytag  myProperty="hello"   xxxx="testxxxx">
     <text> this is slot</text>
     </mytag>
 </view>

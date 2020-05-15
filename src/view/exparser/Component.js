@@ -183,7 +183,7 @@ Component.registerCustom = function(elm){
     publicProps[propName] = !!behaviorProperties[propName].public
   }
 
-  var root = elm.genFunc(elm.path)
+  var root = elm.genFunc(defaultValuesJSON,null)
   root.tag = 'shadow'
   var vtree = createVirtualTree(root)
   let template = {

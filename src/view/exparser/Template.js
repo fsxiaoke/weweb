@@ -364,31 +364,15 @@ Template.create = function (ele, data, behaviorMethods, opts) {
 
 
 const bindings = function (nodes, binding) {
-  let tempNode = null,
-      attrIdx = 0,
-      attr = null,
-      idx = 0
-  // for (; idx < nodes.length; idx++) {
-  //   let nodeItem = nodes[idx]
-  //   if (void 0 === nodeItem.name) {
-  //     tempNode = document.createTextNode(nodeItem.text)
-  //     nodeItem.exp &&
-  //     binding.add(nodeItem.exp, tempNode, 'textContent', setObjAttr)
-  //     shadowRoot.appendChild(tempNode)
-  //   } else {
-  //     let attributes = nodeItem.attrs
-  //     tempNode = document.importNode(nodeItem.prerendered, false)
-  //     attrIdx = 0
-  //     for (; attrIdx < attributes.length; attrIdx++) {
-  //       attr = attributes[attrIdx]
-  //       binding.add(attr.exp, tempNode, attr.name, attr.updater)
-  //     }
-  //     shadowRoot.appendChild(tempNode)
-  //     nodeItem.id && (idMap[nodeItem.id] = tempNode)
-  //     undefined !== nodeItem.slot && (slots[nodeItem.slot] = tempNode)
-  //     nativeRendering(nodeItem.children, tempNode, idMap, slots, binding)
-  //   }
-  // }
+
+  node.childNodes &&  (node.childNodes instanceof Array)  && node.childNodes.forEach(child=>{
+
+    bindings(child, binding)
+  })
+
+
+
+
 }
 
 
@@ -410,8 +394,8 @@ Template.prototype.createCustomInstance = function(component){
   ins.shadowRoot = component.template.__virtualTree.render();
   findSlots(ins.shadowRoot,slots);
   ins.slots = slots;
-  bindings(ins.shadowRoot, _binding)
-  // ins._binding = _binding
+  // bindings(ins.shadowRoot, _binding)
+  ins._binding = _binding
   // ins.idMap = {}
   return ins;
 }

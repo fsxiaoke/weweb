@@ -493,6 +493,7 @@ require('./components/wx-checkbox')
 require('./components/wx-checkbox-Group')
 require('./components/wx-icon')
 require('./components/wx-image')
+require('./components/wx-iframe')
 require('./components/wx-input')
 require('./components/wx-label')
 require('./components/wx-loading')
@@ -614,6 +615,11 @@ window.exparser.registerAsyncComp = function (names, cb) {
           checkState
         )
         break
+      case 'wx-iframe':
+          import(/* webpackChunkName: "wx-iframe" */ './components/wx-iframe').then(
+            checkState
+          )
+          break
       case 'wx-input':
         import(/* webpackChunkName: "wx-input" */ './components/wx-input').then(
           checkState

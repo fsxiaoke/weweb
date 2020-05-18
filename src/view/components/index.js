@@ -10,6 +10,7 @@ import CheckboxGroup from './wx-checkbox-Group'
 import Form from './wx-form'
 import Icon from './wx-icon'
 import Image from './wx-image'
+import iframe from './wx-iframe'
 import Input from './wx-input'
 import Label from './wx-label'
 import Loading from './wx-loading'
@@ -46,6 +47,7 @@ export {
   Form,
   Icon,
   Image,
+  iframe,
   Input,
   Label,
   Loading,

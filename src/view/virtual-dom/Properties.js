@@ -32,6 +32,9 @@ function removeProperty (ele, props) {
 // 设置ele属性
 function applyProperties (ele, props) {
   ele.dataset = ele.dataset || {}
+
+  let dataProxy = ele.__dataProxy;
+
   for (let propName in props) {
     let propValue = props[propName],
       propExist = exparser.Component.hasProperty(ele, propName)
@@ -49,7 +52,11 @@ function applyProperties (ele, props) {
         if (Enums.INLINE_STYLE.indexOf(propName) !== -1) {
           ele[propName] = utils.transformRpx(propValue, !0)
         } else {
-          ele[propName] = propValue
+          if(dataProxy){
+            dataProxy.scheduleReplace([propName], propValue);
+          }else{
+            ele[propName] = propValue
+          }
         }
       } else {
         if (propName.slice(0, 4) === 'bind') {
@@ -169,6 +176,9 @@ function applyProperties (ele, props) {
         }
       }
     }
+  }
+  if(dataProxy) {
+    dataProxy.doUpdates(ele);
   }
 }
 

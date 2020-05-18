@@ -1,12 +1,8 @@
-
 <view class="page_container">
-    <checkbox value="cb" >
-        <button>未选中</button>
 
-        </checkbox>
-<!--    <text bindtap="tapName">hello fone</text>-->
-<!--    <view>{{text}}</view>-->
-    <mytag  myProperty="hello"   xxxx="testxxxx">
-    <text> this is slot</text>
-    </mytag>
+    <checkbox ></checkbox>
+<!--    <my-tag>-->
+    <my-tag my-property="setmyproperty" text-color="#000000">
+        <text> this is slot</text>
+    </my-tag>
 </view>

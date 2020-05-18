@@ -4,6 +4,7 @@ import Template from './Template'
 import Behavior from './Behavior'
 import Element from './Element'
 import Observer from './Observer'
+import DataProxy from "../virtual-dom/DataProxy";
 
 function camelToDashed (txt) {
   return txt.replace(/[A-Z]/g, function (ch) {
@@ -117,7 +118,8 @@ Component.registerCustom = function(elm){
       value: behaviorProperty.value,
       coerce: componentBehavior.methods[behaviorProperty.coerce],
       observer: componentBehavior.methods[behaviorProperty.observer],
-      public: !!behaviorProperty.public
+      // public: !!behaviorProperty.public
+      public:true
     }
 
     propDefination[propKey] = {
@@ -369,6 +371,10 @@ Component.create = function (tagName) {
   let templateInstance = {}
   if(sysComponent.custom){
     let template = Object.create(Template.prototype);
+    //todo
+    newComponent.__dataProxy = DataProxy.create(newComponent, newComponent.__propData, null, function (e, t, n) {
+      newComponent.__templateInstance.updateValues(newElement, newComponent.__propData, e, t, n)
+    })
     templateInstance = newComponent.__templateInstance = template.createCustomInstance(sysComponent)
   }else{
     templateInstance = (newComponent.__templateInstance = sysComponent.template.createInstance(

@@ -1,5 +1,5 @@
 
-<view>
-    <text class="userinfo3">cmpt/mytag.wxml</text>
+<view >
+    <text class="userinfo3" style = "color:{{textColor}}" > {{myProperty}}</text>
     <slot></slot>
 </view>

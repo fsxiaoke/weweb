@@ -2,12 +2,22 @@
 export default window.exparser.registerElement({
   is: 'wx-checkbox',
   template:
-    '\n    <div class="wx-checkbox-wrapper">\n      <div id="input" class="wx-checkbox-input" class.wx-checkbox-input-checked="{{checked}}" class.wx-checkbox-input-disabled="{{disabled}}" style.color="{{_getColor(checked,color)}}"></div>\n      <slot></slot>\n    </div>\n  ',
+    '\n    <div class="wx-checkbox-wrapper">\n      <div id="input" class="wx-checkbox-input" class.wx-checkbox-input-checked="{{checked}}" class.wx-checkbox-input-disabled="{{disabled}}" style.color="{{_getColor(checked,color)}}"></div>\n   <slot></slot>\n    </div>\n  ',
   behaviors: ['wx-base', 'wx-label-target', 'wx-item', 'wx-disabled'],
   properties: {
     color: {
       type: String,
       value: '#09BB07',
+      public: !0
+    },
+    cust:{
+      type: String,
+      value: 'i am cust',
+      public: !0
+    },
+    custtext:{
+      type: String,
+      value: 'i am test text',
       public: !0
     }
   },

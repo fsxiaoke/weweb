@@ -437,12 +437,26 @@ Instance.prototype.updateValues = function (ele, propData, propKey) {
   propKey && this._binding.update(ele, propData, propKey)
 }
 
+const propsConvert = function (propData, propKey) {
+
+  propKey.forEach(key=>{
+    key = key[0]
+    let p = {}
+    p.__value__ = propData[key];
+    p.__wxspec__ = true
+    propData[key] = p
+  })
+
+  return propData
+}
+
 const customUpdateValues = function (ele, propData, propKey) {
   console.log(ele);
 
   let tpi = ele.__wxElement.__templateInstance
-
+  propData = propsConvert(propData, propKey)
   let newtree = tpi._generateFunc(propData,null);
+
   newtree.tag = 'shadow'
   newtree = createVirtualTree(newtree)
   let difftree = tpi.__virtualTree.diff(newtree)

@@ -99,9 +99,9 @@ export default window.exparser.registerElement({
         }
       }
     }
-    setTimeout(() => {
-      this.$.iframe.contentWindow.postMessage("","\*");
-    }, 200);
+    // setTimeout(() => {
+    //   this.$.iframe.contentWindow.postMessage("","\*");
+    // }, 200);
     
     // this._img.src = url
     this.$.iframe.src =url

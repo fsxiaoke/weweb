@@ -22,6 +22,7 @@ Instance.prototype = Object.create(Object.prototype, {
   }
 })
 
+
 function getAttributes (attributes) {
   let tempObj = Object.create(null)
   let idx = 0
@@ -361,6 +362,50 @@ Template.create = function (ele, data, behaviorMethods, opts) {
   return tempTemplate
 }
 
+
+
+const bindings = function (nodes, binding) {
+
+  node.childNodes &&  (node.childNodes instanceof Array)  && node.childNodes.forEach(child=>{
+
+    bindings(child, binding)
+  })
+
+
+
+
+}
+
+
+const findSlots = function(node, slots){
+  node.childNodes &&  (node.childNodes instanceof Array)  && node.childNodes.forEach(child=>{
+    if(child._tagName === 'slot'){
+      slots[''] = child
+    }
+    findSlots(child, slots)
+  })
+}
+
+Template.prototype.createCustomInstance = function(component){
+  let ins = Object.create(Instance.prototype)
+  let idMap = Object.create(null)
+  let slots = Object.create(null)
+  let _binding = BoundProps.create()
+
+  ins.shadowRoot = component.template.__virtualTree.render();
+  findSlots(ins.shadowRoot,slots);
+  ins.slots = slots;
+  // bindings(ins.shadowRoot, _binding)
+  ins._binding = _binding
+  // ins.idMap = {}
+  ins.__virtualTree = component.template.__virtualTree
+  ins._generateFunc = component.template._generateFunc
+  return ins;
+}
+
+
+
+
 Template.prototype.createInstance = function () {
   let ins = Object.create(Instance.prototype)
   let idMap = Object.create(null)
@@ -384,7 +429,42 @@ Template.prototype.createInstance = function () {
 }
 
 Instance.prototype.updateValues = function (ele, propData, propKey) {
+
+  if(ele.__wxElement && ele.__wxElement.__dataProxy){
+    customUpdateValues(ele, propData, propKey)
+  }
+
   propKey && this._binding.update(ele, propData, propKey)
 }
+
+const propsConvert = function (propData, propKey) {
+
+  propKey.forEach(key=>{
+    key = key[0]
+    let p = {}
+    p.__value__ = propData[key];
+    p.__wxspec__ = true
+    propData[key] = p
+  })
+
+  return propData
+}
+
+const customUpdateValues = function (ele, propData, propKey) {
+  console.log(ele);
+
+  let tpi = ele.__wxElement.__templateInstance
+  propData = propsConvert(propData, propKey)
+  let newtree = tpi._generateFunc(propData,null);
+
+  newtree.tag = 'shadow'
+  newtree = createVirtualTree(newtree)
+  let difftree = tpi.__virtualTree.diff(newtree)
+  tpi.__virtualTree = newtree
+  difftree.apply(ele.__wxElement.shadowRoot)
+
+}
+
+
 
 export default Template

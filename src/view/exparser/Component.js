@@ -4,6 +4,7 @@ import Template from './Template'
 import Behavior from './Behavior'
 import Element from './Element'
 import Observer from './Observer'
+import DataProxy from "../virtual-dom/DataProxy";
 
 function camelToDashed (txt) {
   return txt.replace(/[A-Z]/g, function (ch) {
@@ -117,7 +118,8 @@ Component.registerCustom = function(elm){
       value: behaviorProperty.value,
       coerce: componentBehavior.methods[behaviorProperty.coerce],
       observer: componentBehavior.methods[behaviorProperty.observer],
-      public: !!behaviorProperty.public
+      // public: !!behaviorProperty.public
+      public:true
     }
 
     propDefination[propKey] = {
@@ -183,7 +185,7 @@ Component.registerCustom = function(elm){
     publicProps[propName] = !!behaviorProperties[propName].public
   }
 
-  var root = elm.genFunc(elm.path)
+  var root = elm.genFunc(defaultValuesJSON,null)
   root.tag = 'shadow'
   var vtree = createVirtualTree(root)
   let template = {
@@ -352,14 +354,6 @@ Component.register = function (nElement) {
   }
 }
 
-const findSlots = function(node, slots){
-  node.childNodes &&  (node.childNodes instanceof Array)  && node.childNodes.forEach(child=>{
-    if(child._tagName === 'slot'){
-      slots[''] = child
-    }
-    findSlots(child, slots)
-  })
-}
 
 // createElement
 Component.create = function (tagName) {
@@ -376,10 +370,12 @@ Component.create = function (tagName) {
 
   let templateInstance = {}
   if(sysComponent.custom){
-    templateInstance.shadowRoot = sysComponent.template.__virtualTree.render();
-    let slots = Object.create(null)
-    findSlots(templateInstance.shadowRoot,slots);
-    templateInstance.slots = slots;
+    let template = Object.create(Template.prototype);
+    //todo
+    newComponent.__dataProxy = DataProxy.create(newComponent, newComponent.__propData, null, function (e, t, n) {
+      newComponent.__templateInstance.updateValues(newElement, newComponent.__propData, e, t, n)
+    })
+    templateInstance = newComponent.__templateInstance = template.createCustomInstance(sysComponent)
   }else{
     templateInstance = (newComponent.__templateInstance = sysComponent.template.createInstance(
         newComponent
